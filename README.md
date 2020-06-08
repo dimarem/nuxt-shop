@@ -1,6 +1,12 @@
 # WatchWise
 
-> My primo Nuxt.js project
+Simple example of using Adonis.js and Nuxt.js frameworks.
+
+## Additional dependencies
+
+1. mysql2 (<https://www.npmjs.com/package/mysql2>)
+2. sass-loader (https://www.npmjs.com/package/sass-loader)
+3. axios (<https://www.npmjs.com/package/axios>)
 
 ## Build Setup
 
@@ -19,4 +25,4 @@ $ npm run start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation on how things work, check out [Adonis.js docs](https://adonisjs.com) and [Nuxt.js docs](https://nuxtjs.org).

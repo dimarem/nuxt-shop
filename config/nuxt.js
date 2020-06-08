@@ -16,7 +16,10 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    ],
+    htmlAttrs: {
+      lang: 'ru'
+    }
   },
   /*
   ** Customize the progress-bar color
@@ -61,5 +64,13 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  /*
+  ** Extract CSS styles into separate files on production mode
+  */
+  extractCSS: process.env.NODE_ENV === 'production',
+  /*
+  ** https://cli.vuejs.org/ru/guide/browser-compatibility.html#modern-mode
+  */
+  modern: process.env.NODE_ENV === 'production'
 }
