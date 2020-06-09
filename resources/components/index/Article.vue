@@ -8,24 +8,12 @@
     </nuxt-link>
     <h1>{{ content.title }}</h1>
     <h2>{{ content.brand }}</h2>
-    <p>{{ content.price | currency(content.currency) }}</p>
+    <p>{{ formatted_price }}</p>
   </article>
 </template>
 
 <script>
 export default {
-  filters: {
-    /**
-     * Форматирует цену в более "читаемый" вид,
-     * добавляя символ соответствующей валюты.
-     *
-     * @param {number} price - цена.
-     * @param {string} currency - код валюты.
-     */
-    currency (price, currency) {
-      return new Intl.NumberFormat('ru-RU', { style: 'currency', currency }).format(price)
-    }
-  },
   props: {
     /**
      * Объект содержащий описание товара.
@@ -33,6 +21,26 @@ export default {
     content: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    /**
+     * Формирует строковое
+     * представление цены.
+     *
+     * @returns {string}
+     */
+    formatted_price () {
+      const price = new Intl.NumberFormat('ru-RU').format(this.content.price)
+
+      const abbreviations = {
+        USD: '$',
+        RUB: '₽'
+      }
+
+      const currency = abbreviations[this.content.currency]
+
+      return `${currency} ${price}`
     }
   }
 }

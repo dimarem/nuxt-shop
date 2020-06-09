@@ -15,4 +15,8 @@
 
 const Route = use('Route')
 
+Route.group(() => {
+  Route.get('/watches', 'WatchController.index')
+}).prefix('api')
+
 Route.any('*', 'NuxtController.render')

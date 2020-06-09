@@ -4,9 +4,9 @@ module.exports = {
   mode: 'universal',
   dev: process.env.NODE_ENV === 'development',
   srcDir: resolve(__dirname, '..', 'resources'),
-  /*
-  ** Headers of the page
-  */
+  /**
+   * Заголовки страницы.
+   */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -21,62 +21,47 @@ module.exports = {
       lang: 'ru'
     }
   },
-  /*
-  ** Customize the progress-bar color
-  */
+  /**
+   * Progress-bar color.
+   */
   loading: { color: '#fff' },
-  /*
-  ** Global CSS
-  */
+  /**
+   * Файлы с глобальными стилями.
+   */
   css: [
     '~assets/main.scss'
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-  ],
-  /*
-  ** Nuxt.js dev-modules
-  */
+  /**
+   * Nuxt.js dev-modules.
+   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/style-resources'
   ],
-  /*
-  ** Global variables
-  */
+  /**
+   * Файлы с scss-переменными.
+   */
   styleResources: {
     scss: ['./assets/_variables.scss']
-  },
-  /*
-  ** Nuxt.js modules
-  */
-  modules: [
-  ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {
   },
   /*
   ** Build configuration
   */
   build: {
-    /*
-    ** Extract CSS styles into separate files on production mode
-    */
-    extractCSS: process.env.NODE_ENV === 'production',
-    /*
-    ** You can extend webpack config here
-    */
-    extend (config, ctx) {
-    }
+    /**
+     * Извлекать css-стили в отдельные файлы в production.
+     */
+    extractCSS: process.env.NODE_ENV === 'production'
   },
-  /*
-  ** https://cli.vuejs.org/ru/guide/browser-compatibility.html#modern-mode
-  */
-  modern: process.env.NODE_ENV === 'production'
+  /**
+   * https://cli.vuejs.org/ru/guide/browser-compatibility.html#modern-mode
+   */
+  modern: process.env.NODE_ENV === 'production',
+  /**
+   * Переменные окружения.
+   */
+  env: {
+    baseUrl: 'http://127.0.0.1:3000'
+  }
 }
