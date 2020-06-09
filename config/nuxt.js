@@ -29,6 +29,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~assets/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -40,14 +41,19 @@ module.exports = {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/style-resources'
   ],
+  /*
+  ** Global variables
+  */
+  styleResources: {
+    scss: ['./assets/_variables.scss']
+  },
   /*
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
   ],
   /*
   ** Axios module configuration
@@ -60,15 +66,15 @@ module.exports = {
   */
   build: {
     /*
+    ** Extract CSS styles into separate files on production mode
+    */
+    extractCSS: process.env.NODE_ENV === 'production',
+    /*
     ** You can extend webpack config here
     */
     extend (config, ctx) {
     }
   },
-  /*
-  ** Extract CSS styles into separate files on production mode
-  */
-  extractCSS: process.env.NODE_ENV === 'production',
   /*
   ** https://cli.vuejs.org/ru/guide/browser-compatibility.html#modern-mode
   */

@@ -5,8 +5,9 @@ Simple example of using Adonis.js and Nuxt.js frameworks.
 ## Additional dependencies
 
 1. mysql2 (<https://www.npmjs.com/package/mysql2>)
-2. sass-loader (https://www.npmjs.com/package/sass-loader)
-3. axios (<https://www.npmjs.com/package/axios>)
+2. sass-loader (<https://www.npmjs.com/package/sass-loader>)
+3. @nuxtjs/style-resources (<https://github.com/nuxt-community/style-resources-module/>)
+4. axios (<https://www.npmjs.com/package/axios>)
 
 ## Build Setup
 
