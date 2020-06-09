@@ -11,12 +11,14 @@
 |
 */
 
-// const Factory = use('Factory')
+const Factory = use('Factory')
 
-/**
-  Factory.blueprint('App/Models/User', (faker) => {
-    return {
-      username: faker.username()
-    }
-  })
-*/
+Factory.blueprint('App/Models/Watch', (faker) => {
+  return {
+    title: faker.pickone(['Heritage 1969', 'Rose Gold', 'Dark Silver', 'White Silver', 'Dark 2014', 'Opaque Fog', 'Navy Blue', 'Titan']),
+    brand: faker.pickone(['Ambassador', 'Armin Strom', 'Arnold & Son', 'Blancpain', 'Bell & Ross', 'Bovet', 'Boucheron', 'Cecil purnell']),
+    price: faker.floating({ min: 500, max: 2000 }),
+    currency: 'USD',
+    image: '/images/watch.png'
+  }
+})

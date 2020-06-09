@@ -1,14 +1,14 @@
 <template>
   <article>
-    <nuxt-link :to="`/watch/${description.id}`">
+    <nuxt-link :to="`/watch/${content.id}`">
       <img
-        :src="description.image"
-        :alt="description.title"
+        :src="content.image"
+        :alt="content.title"
       >
     </nuxt-link>
-    <h1>{{ description.title }}</h1>
-    <h2>{{ description.brand }}</h2>
-    <p>{{ description.price | currency(description.currency) }}</p>
+    <h1>{{ content.title }}</h1>
+    <h2>{{ content.brand }}</h2>
+    <p>{{ content.price | currency(content.currency) }}</p>
   </article>
 </template>
 
@@ -30,7 +30,7 @@ export default {
     /**
      * Объект содержащий описание товара.
      */
-    description: {
+    content: {
       type: Object,
       required: true
     }
@@ -69,6 +69,7 @@ article {
     font-family: $light;
     font-size: 1rem;
     color: rgb(150, 150, 150);
+    text-transform: uppercase;
   }
 
   p {

@@ -1,7 +1,7 @@
 <template>
   <section>
     <main>
-      <Article v-for="n in 100" :key="n" :description="description" />
+      <Article v-for="n in 100" :key="n" :content="content" />
     </main>
   </section>
 </template>
@@ -19,7 +19,7 @@ export default {
   },
   data () {
     return {
-      description: {
+      content: {
         id: 1,
         title: 'Heritage',
         brand: 'Ambassador',
