@@ -5,6 +5,13 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: $regular;
-  font-size: .95rem;
   color: $dark-blue;
+}
+
+.page-enter, .page-leave-to {
+  opacity: 0;
+}
+
+.page-enter-active, .page-leave-active {
+  transition: .25s;
 }

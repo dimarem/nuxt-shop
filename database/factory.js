@@ -22,3 +22,11 @@ Factory.blueprint('App/Models/Watch', (faker) => {
     image: '/images/watch.png'
   }
 })
+
+Factory.blueprint('App/Models/Meta', (faker) => {
+  return {
+    page: 'watches',
+    keywords: 'часы наручные, купить часы наручные недорого',
+    description: 'У нас вы можете купить недорого наручные часы на любой вкус'
+  }
+})

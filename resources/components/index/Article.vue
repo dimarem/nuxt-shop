@@ -1,9 +1,11 @@
 <template>
   <article>
-    <nuxt-link :to="`/watch/${content.id}`">
+    <nuxt-link :to="`/description/${content.id}`">
       <img
         :src="content.image"
         :alt="content.title"
+        :class="{ lucid }"
+        @load="lucid = false"
       >
     </nuxt-link>
     <h1>{{ content.title }}</h1>
@@ -21,6 +23,11 @@ export default {
     content: {
       type: Object,
       required: true
+    }
+  },
+  data () {
+    return {
+      lucid: true
     }
   },
   computed: {
@@ -46,51 +53,59 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 article {
+  box-sizing: border-box;
   position: relative;
   width: 250px;
-  margin: 0 2rem;
+  margin: 0 2rem 4rem;
   padding: 1rem;
-  padding-top: 8rem;
-  border-radius: 25px;
-  background-color: rgb(240, 240, 240);
 
-  &:not(:last-of-type) {
-    margin-bottom: 12rem;
-  }
-
-  h1, h2, p {
-    margin: 1rem 0;
-    text-align: center;
-  }
-
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  h1, p {
-    font-family: $bold;
-  }
-
-  h2 {
-    font-family: $light;
-    font-size: 1rem;
-    color: rgb(150, 150, 150);
-    text-transform: uppercase;
-  }
-
-  p {
-    color: $brown;
-    font-family: $numeric;
-  }
-
-  img {
+  &::after {
+    content: "";
     position: absolute;
-    left: 50%;
-    top: -50%;
-    width: 150px;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 60%;
+    border-radius: 25px;
+    background-color: rgb(240, 240, 240);
   }
+}
+
+h1, h2, p {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+h1, h2 {
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+h1, p {
+  font-family: $bold;
+}
+
+h2 {
+  font-family: $light;
+  color: rgb(150, 150, 150);
+  text-transform: uppercase;
+}
+
+p {
+  color: $brown;
+  font-family: $numeric;
+}
+
+img {
+  display: block;
+  width: 150px;
+  margin: auto;
+}
+
+.lucid {
+  opacity: 0;
 }
 </style>

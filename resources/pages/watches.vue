@@ -1,9 +1,9 @@
 <template>
   <section>
-    <main :class="{filled: content.length, empty: !content.length}">
-      <template v-if="content.length">
+    <main>
+      <template v-if="watches.length">
         <Article
-          v-for="item in content"
+          v-for="item in watches"
           :key="item.id"
           :content="item"
         />
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+/* eslint-disable camelcase */
+
 import axios from 'axios'
 import Article from '~/components/index/Article.vue'
 
@@ -30,16 +32,14 @@ export default {
   /**
    * Запрашивает данные текущей страницы.
    */
-  asyncData (ctx) {
-    const { error, env: { baseUrl } } = ctx
-
+  asyncData ({ error, env: { baseUrl } }) {
     return axios
       .get(`${baseUrl}/api/watches`)
-      .then((res) => {
-        const data = res.data
+      .then(({ data }) => {
+        const { success, page_data } = data
 
-        if (data.success) {
-          return { content: data.watches }
+        if (success) {
+          return { page_data }
         } else {
           error({ statusCode: 500, message: 'Сервис временно недоступен' })
         }
@@ -50,7 +50,47 @@ export default {
   },
   data () {
     return {
-      content: [] // массив, каждый элемент которого представляет краткое описание товара
+      /**
+       * Объект вида {total: '', perPage: '', lastPage: '', page: '', data: [{...}]}, где
+       * total - общее количество записей в БД,
+       * perPage - количество записей на страницу,
+       * lastPage - номер последней страницы,
+       * page - номер текущей страницы,
+       * data - массив, каждый элемент, которого представляет собой описание часов.
+       */
+      page_data: null
+    }
+  },
+  computed: {
+    /**
+     * Возвращает массив содержащий
+     * описание часов.
+     *
+     * @returns {array}
+     */
+    watches () {
+      if (this.page_data) {
+        return this.page_data.data
+      } else {
+        return []
+      }
+    }
+  },
+  mounted () {
+    // eslint-disable-next-line no-console
+    console.log(process.env.baseUrl)
+  },
+  head () {
+    return {
+      title: 'Купить наручные часы',
+      meta: [
+        { hid: 'keywords', name: 'keywords', content: 'часы наручные, купить часы наручные недорого' },
+        { hid: 'description', name: 'description', content: 'У нас вы можете купить недорого наручные часы на любой вкус' },
+        { hid: 'og:title', property: 'og:title', content: 'Купить наручные часы' },
+        { hid: 'og:type', property: 'og:type', content: 'website' },
+        { hid: 'og:url', property: 'og:url', content: `${process.env.baseUrl}${this.$route.path}` },
+        { hid: 'og:image', property: 'og:image', content: `${process.env.baseUrl}/images/og/nuxt.png` }
+      ]
     }
   }
 }
@@ -58,21 +98,14 @@ export default {
 
 <style lang="scss">
 main {
+  box-sizing: border-box;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
   justify-content: center;
   max-width: 1200px;
-  margin: auto;
-}
-
-.filled {
-  padding: 10rem 0 2rem;
-}
-
-.empty {
-  box-sizing: border-box;
   min-height: 100vh;
+  margin: auto;
   padding: 2rem 0;
 }
 </style>
