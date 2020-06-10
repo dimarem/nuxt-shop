@@ -8,8 +8,9 @@ class MetaSchema extends Schema {
     this.create('metas', (table) => {
       table.increments()
       table.string('page')
-      table.string('keywords')
-      table.string('description')
+      table.string('page_title')
+      table.string('page_keywords')
+      table.string('page_description')
       table.timestamps()
     })
   }

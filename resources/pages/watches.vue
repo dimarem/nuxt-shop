@@ -17,6 +17,7 @@
 
 <script>
 /* eslint-disable camelcase */
+/* eslint-disable no-console */
 
 import axios from 'axios'
 import Article from '~/components/index/Article.vue'
@@ -33,8 +34,10 @@ export default {
    * Запрашивает данные текущей страницы.
    */
   asyncData ({ error, env: { baseUrl } }) {
+    const url = `${baseUrl}/api/watches`
+
     return axios
-      .get(`${baseUrl}/api/watches`)
+      .get(url)
       .then(({ data }) => {
         const { success, page_data } = data
 
@@ -76,16 +79,19 @@ export default {
       }
     }
   },
-  mounted () {
-    // eslint-disable-next-line no-console
-    console.log(process.env.baseUrl)
-  },
   head () {
+    // общая метаинформация страниц сайта
+    const meta = this.$store.state.meta
+
+    const watches_page_meta = meta.length ? meta.find(item => item.page === 'watches') : {}
+
+    const { page_title = '', page_description = '', page_keywords = '' } = watches_page_meta
+
     return {
-      title: 'Купить наручные часы',
+      title: `${page_title}`,
       meta: [
-        { hid: 'keywords', name: 'keywords', content: 'часы наручные, купить часы наручные недорого' },
-        { hid: 'description', name: 'description', content: 'У нас вы можете купить недорого наручные часы на любой вкус' },
+        { hid: 'keywords', name: 'keywords', content: `${page_keywords}` },
+        { hid: 'description', name: 'description', content: `${page_description}` },
         { hid: 'og:title', property: 'og:title', content: 'Купить наручные часы' },
         { hid: 'og:type', property: 'og:type', content: 'website' },
         { hid: 'og:url', property: 'og:url', content: `${process.env.baseUrl}${this.$route.path}` },

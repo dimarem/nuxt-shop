@@ -26,7 +26,8 @@ Factory.blueprint('App/Models/Watch', (faker) => {
 Factory.blueprint('App/Models/Meta', (faker) => {
   return {
     page: 'watches',
-    keywords: 'часы наручные, купить часы наручные недорого',
-    description: 'У нас вы можете купить недорого наручные часы на любой вкус'
+    page_title: 'Купить наручные часы недорого',
+    page_keywords: 'часы наручные, купить часы наручные недорого',
+    page_description: 'У нас вы можете купить недорого наручные часы на любой вкус'
   }
 })

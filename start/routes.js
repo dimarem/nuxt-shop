@@ -16,6 +16,7 @@
 const Route = use('Route')
 
 Route.group(() => {
+  Route.get('/meta', 'MetaController.index')
   Route.get('/watches', 'WatchController.index')
 }).prefix('api')
 
