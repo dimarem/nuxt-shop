@@ -11,7 +11,7 @@ export const state = () => ({
 
 export const mutations = {
   /**
-   * Сохраняет общие метаданные.
+   * Сохраняет общие метаданные сайта.
    */
   set_meta (state, meta) {
     state.meta = meta
@@ -20,7 +20,8 @@ export const mutations = {
 
 export const actions = {
   /**
-   * Запрашивает и возвращает метаданные сайта.
+   * Запрашивает и возвращает метаданные сайта
+   * до рендеринга страниц.
    */
   async nuxtServerInit ({ commit }) {
     try {

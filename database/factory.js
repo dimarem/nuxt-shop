@@ -19,7 +19,7 @@ Factory.blueprint('App/Models/Watch', (faker) => {
     brand: faker.pickone(['Ambassador', 'Armin Strom', 'Arnold & Son', 'Blancpain', 'Bell & Ross', 'Bovet', 'Boucheron', 'Cecil purnell']),
     price: faker.floating({ min: 500, max: 2000 }),
     currency: 'USD',
-    image: '/images/watch.png'
+    image: faker.pickone(['/images/watches/1.png', '/images/watches/2.png', '/images/watches/3.png', '/images/watches/4.png', '/images/watches/5.png', '/images/watches/6.png'])
   }
 })
 

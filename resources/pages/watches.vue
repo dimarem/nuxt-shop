@@ -79,8 +79,10 @@ export default {
       }
     }
   },
+  /**
+   * Формирует метаданные страницы.
+   */
   head () {
-    // общая метаинформация страниц сайта
     const meta = this.$store.state.meta
 
     const watches_page_meta = meta.length ? meta.find(item => item.page === 'watches') : {}
