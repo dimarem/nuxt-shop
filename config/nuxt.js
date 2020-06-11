@@ -62,6 +62,7 @@ module.exports = {
    * Переменные окружения.
    */
   env: {
-    baseUrl: 'http://127.0.0.1:3000'
+    baseUrl: 'http://127.0.0.1:3000',
+    siteName: 'WatchWise'
   }
 }
