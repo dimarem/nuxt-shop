@@ -9,10 +9,12 @@ class WatchController {
    *
    * @returns {object}
    */
-  async index () {
+  async index ({ request }) {
+    const page = request.input('page')
+
     try {
       // массив
-      const page_data = await Watch.query().select('id', 'title', 'brand', 'price', 'currency', 'image').paginate(1, 24)
+      const page_data = await Watch.query().select('id', 'title', 'brand', 'price', 'currency', 'image').paginate(page, 24)
 
       return { success: true, page_data }
     } catch (error) {
