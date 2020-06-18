@@ -1,23 +1,32 @@
 <template>
   <section>
+    <main class="watches-list">
+      <template v-if="watches.length">
+        <transition name="articles" mode="out-in">
+          <div
+            :key="Date.now()"
+            class="articles"
+          >
+            <Article
+              v-for="item in watches"
+              :key="item.id"
+              :content="item"
+            />
+          </div>
+        </transition>
+      </template>
+      <template v-else>
+        <p class="empty">
+          Данные отсутствуют
+        </p>
+      </template>
+    </main>
     <Pagination
       v-if="pagination_required"
       :current_page="page_data.page"
-      :number_of_pages="25"
+      :number_of_pages="page_data.lastPage"
       base="/"
     />
-    <main>
-      <template v-if="watches.length">
-        <Article
-          v-for="item in watches"
-          :key="item.id"
-          :content="item"
-        />
-      </template>
-      <template v-else>
-        <p>Данные отсутствуют</p>
-      </template>
-    </main>
   </section>
 </template>
 
@@ -25,9 +34,10 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
 
+import anime from 'animejs/lib/anime.es.js'
 import axios from 'axios'
 import Article from '~/components/index/Article.vue'
-import Pagination from '~/components/index/pagination/Pagination.vue'
+import Pagination from '~/components/pagination/Pagination.vue'
 
 export default {
   components: {
@@ -78,7 +88,6 @@ export default {
         error({ statusCode: 500, message: 'Сервис временно недоступен' })
       })
   },
-  watchQuery: true,
   data () {
     return {
       /**
@@ -119,6 +128,31 @@ export default {
       }
     }
   },
+  beforeRouteUpdate (to, from, next) {
+    if (document.documentElement.scrollTop !== 0) {
+      this.scroll_to_top(next)
+    } else {
+      next()
+    }
+  },
+  methods: {
+    /**
+     * Прокручивает страницу к началу.
+     *
+     * @param {function} next - функция-финализатор
+     */
+    scroll_to_top (next) {
+      anime({
+        targets: document.documentElement,
+        scrollTop: 0,
+        easing: 'easeOutExpo',
+        duration: 500,
+        complete: next
+      })
+    }
+  },
+  watchQuery: true,
+  scrollToTop: false,
   /**
    * Формирует метаданные страницы.
    */
@@ -146,15 +180,35 @@ export default {
 </script>
 
 <style lang="scss">
-main {
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: center;
-  max-width: 1200px;
+.watches-list {
+  position: relative;
   min-height: 100vh;
-  margin: auto;
-  padding: 2rem 0;
+
+  .articles {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    min-height: 100vh;
+    margin: auto;
+  }
+
+  .articles-enter, .articles-leave-to {
+    opacity: 0;
+  }
+
+  .articles-enter-active, .articles-leave-active {
+    transition: .25s;
+  }
+
+  .empty {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    max-width: 300px;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

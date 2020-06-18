@@ -81,17 +81,18 @@ h1, h2, p {
 
 h1, h2 {
   font-weight: normal;
-  font-size: 1rem;
 }
 
-h1, p {
+h1 {
   font-family: $bold;
+  font-size: 1rem;
 }
 
 h2 {
   font-family: $light;
   color: rgb(150, 150, 150);
   text-transform: uppercase;
+  font-size: .95rem;
 }
 
 p {

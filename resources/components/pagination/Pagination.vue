@@ -126,10 +126,17 @@ export default {
      */
     search_params () {
       let search_params = ''
+      let b = false
 
       try {
         for (const [key, value] of Object.entries(this.search)) {
-          search_params += `&${key}=${encodeURIComponent(value)}`
+          if (b) {
+            search_params += `&${key}=${encodeURIComponent(value)}`
+          } else {
+            search_params += `${key}=${encodeURIComponent(value)}`
+
+            b = true
+          }
         }
       } catch (e) {}
 
@@ -215,9 +222,9 @@ export default {
       const search_params = this.search_params
 
       if (index) {
-        return { url: `${base}?page=${index}${search_params}`, index }
+        return { url: `${base}?page=${index}${search_params ? '&' + search_params : ''}`, index }
       } else {
-        return search_params ? { url: `${base}?${search_params}`, index: 1 } : { url: base, index: 1 }
+        return { url: `${base}${search_params ? '?' + search_params : ''}`, index: 1 }
       }
     },
     /**
@@ -264,6 +271,7 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  padding-bottom: 3rem;
 
   .nuxt-pagination-links {
     display: flex;
@@ -303,7 +311,7 @@ export default {
       width: 100%;
       height: 100%;
       border-radius: 5px;
-      background-color: rgb(30, 165, 255);
+      background-color: $light-blue;
       box-shadow: 0 1px 2px rgba(0,0,0,0.07),
                   0 2px 4px rgba(0,0,0,0.07),
                   0 4px 8px rgba(0,0,0,0.07),
@@ -311,7 +319,10 @@ export default {
                   0 16px 32px rgba(0,0,0,0.07),
                   0 32px 64px rgba(0,0,0,0.07);
       transform: scale(0);
-      transition: .3s;
+    }
+
+    &:not(.nuxt-link-exact-active):hover {
+      color: $light-blue;
     }
   }
 
@@ -359,6 +370,10 @@ export default {
   @keyframes show-up {
     0% {
       transform: scale(.8);
+    } 50% {
+      transform: scale(1.2);
+    } 75% {
+      transform: scale(.9);
     } 100% {
       transform: scale(1);
     }
