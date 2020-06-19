@@ -14,7 +14,7 @@
         :to="route.url"
         :class="{'nuxt-pagination-link': use_default_css}"
       >
-        <span>{{ route.index }}</span>
+        {{ route.index }}
       </nuxt-link>
     </div>
     <button
@@ -270,17 +270,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
-  padding-bottom: 3rem;
+  padding: 0 1rem 3rem;
 
   .nuxt-pagination-links {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    padding: 0 .5rem;
-    border-radius: 30px;
-    background-color: rgb(250, 250, 250);
   }
 
   .nuxt-pagination-link,
@@ -290,36 +286,17 @@ export default {
 
   .nuxt-pagination-link {
     box-sizing: border-box;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 2.25rem;
-    height: 2.25rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
     margin: .25rem;
-    padding: .5rem;
     color: inherit;
-    font-size: 100%;
+    font-size: .95rem;
     text-align: center;
     text-decoration: none;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 5px;
-      background-color: $light-blue;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.07),
-                  0 2px 4px rgba(0,0,0,0.07),
-                  0 4px 8px rgba(0,0,0,0.07),
-                  0 8px 16px rgba(0,0,0,0.07),
-                  0 16px 32px rgba(0,0,0,0.07),
-                  0 32px 64px rgba(0,0,0,0.07);
-      transform: scale(0);
-    }
+    border-radius: 5px;
 
     &:not(.nuxt-link-exact-active):hover {
       color: $light-blue;
@@ -332,13 +309,12 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    padding: .5rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
     border: none;
     outline: none;
-    background-color: rgb(250, 250, 250);
-    border-radius: 50%;
+    background-color: transparent;
 
     &:first-of-type {
       margin-right: .5rem;
@@ -347,14 +323,6 @@ export default {
     &:last-of-type {
       margin-left: .5rem;
     }
-  }
-
-  span {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    transform: translate(-50%, -50%);
   }
 
   svg {
@@ -367,24 +335,9 @@ export default {
     opacity: .2;
   }
 
-  @keyframes show-up {
-    0% {
-      transform: scale(.8);
-    } 50% {
-      transform: scale(1.2);
-    } 75% {
-      transform: scale(.9);
-    } 100% {
-      transform: scale(1);
-    }
-  }
-
   .nuxt-link-exact-active {
+    background-color: $light-blue;
     color: white;
-
-    &::after {
-      animation: show-up .2s forwards;
-    }
   }
 }
 </style>

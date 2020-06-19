@@ -25,6 +25,7 @@
       v-if="pagination_required"
       :current_page="page_data.page"
       :number_of_pages="page_data.lastPage"
+      :max_links="9"
       base="/"
     />
   </section>
@@ -128,6 +129,9 @@ export default {
       }
     }
   },
+  /**
+   * Прокручивает страницу к началу.
+   */
   beforeRouteUpdate (to, from, next) {
     if (document.documentElement.scrollTop !== 0) {
       this.scroll_to_top(next)

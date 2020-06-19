@@ -102,7 +102,7 @@ p {
 
 img {
   display: block;
-  width: 150px;
+  height: 250px;
   margin: auto;
 }
 
