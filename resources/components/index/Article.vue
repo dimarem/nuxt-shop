@@ -70,7 +70,7 @@ article {
     width: 100%;
     height: 60%;
     border-radius: 25px;
-    background-color: rgb(240, 240, 240);
+    background-color: rgb(245, 245, 245);
   }
 }
 
@@ -102,7 +102,7 @@ p {
 
 img {
   display: block;
-  height: 250px;
+  height: 225px;
   margin: auto;
 }
 
