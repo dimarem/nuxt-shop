@@ -1,31 +1,18 @@
 <template>
   <section>
-    <main class="watches-list">
-      <template v-if="watches.length">
-        <transition name="articles" mode="out-in">
-          <div
-            :key="Date.now()"
-            class="articles"
-          >
-            <Article
-              v-for="item in watches"
-              :key="item.id"
-              :content="item"
-            />
-          </div>
-        </transition>
-      </template>
-      <template v-else>
-        <p class="empty">
-          Данные отсутствуют
-        </p>
-      </template>
+    <main>
+      <div class="watches">
+        <Article
+          v-for="item in watches"
+          :key="item.id"
+          :content="item"
+        />
+      </div>
     </main>
     <Pagination
       v-if="pagination_required"
       :current_page="page_data.page"
       :number_of_pages="page_data.lastPage"
-      :max_links="9"
       base="/"
     />
   </section>
@@ -35,7 +22,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
 
-import anime from 'animejs/lib/anime.es.js'
 import axios from 'axios'
 import Article from '~/components/index/Article.vue'
 import Pagination from '~/components/pagination/Pagination.vue'
@@ -77,6 +63,11 @@ export default {
         const { success, page_data } = data
 
         if (success) {
+          // данные по указанной странице отсутствуют
+          if (page_data.data.length === 0) {
+            error({ statusCode: 404, message: 'Страница не найдена' })
+          }
+
           // сохраним данные в кеше
           store.commit('save_in_cache', { url, page_data })
 
@@ -111,11 +102,7 @@ export default {
      * @example [{id: '', image: '', title: '', brand: '', price: ''}]
      */
     watches () {
-      if (this.page_data) {
-        return this.page_data.data
-      } else {
-        return []
-      }
+      return this.page_data.data
     },
     /**
      * Вычисляет необходимость отображения
@@ -129,34 +116,7 @@ export default {
       }
     }
   },
-  /**
-   * Прокручивает страницу к началу.
-   */
-  beforeRouteUpdate (to, from, next) {
-    if (document.documentElement.scrollTop !== 0) {
-      this.scroll_to_top(next)
-    } else {
-      next()
-    }
-  },
-  methods: {
-    /**
-     * Прокручивает страницу к началу.
-     *
-     * @param {function} next - функция-финализатор
-     */
-    scroll_to_top (next) {
-      anime({
-        targets: document.documentElement,
-        scrollTop: 0,
-        easing: 'easeOutExpo',
-        duration: 500,
-        complete: next
-      })
-    }
-  },
   watchQuery: true,
-  scrollToTop: false,
   /**
    * Формирует метаданные страницы.
    */
@@ -165,7 +125,7 @@ export default {
 
     const watches_page_meta = meta.length ? meta.find(item => item.page === 'watches') : {}
 
-    const { page_title = '', page_description = '', page_keywords = '' } = watches_page_meta
+    const { page_title = 'WatchWise', page_description = '', page_keywords = '' } = watches_page_meta
 
     return {
       title: `${page_title}`,
@@ -184,35 +144,62 @@ export default {
 </script>
 
 <style lang="scss">
-.watches-list {
-  position: relative;
+.watches {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2rem;
+  grid-row-gap: 4rem;
+  max-width: 1000px;
   min-height: 100vh;
+  margin: auto;
 
-  .articles {
-    box-sizing: border-box;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    max-width: 1200px;
-    min-height: 100vh;
-    margin: auto;
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .articles-enter, .articles-leave-to {
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
+
+  article {
     opacity: 0;
+    transform: translateY(25px);
+
+    &:nth-of-type(3n + 1) {
+      animation: rise .5s forwards;
+    }
+
+    &:nth-of-type(3n + 2) {
+      animation: rise .5s .15s forwards;
+    }
+
+    &:nth-of-type(3n + 3) {
+      animation: rise .5s .3s forwards;
+    }
+
+    @media screen and (max-width: 800px) {
+      &:nth-of-type(2n + 1) {
+        animation: rise .5s forwards;
+      }
+
+      &:nth-of-type(2n + 2) {
+        animation: rise .5s .15s forwards;
+      }
+    }
+
+    @media screen and (max-width: 500px) {
+      animation: show-up .5s forwards;
+    }
   }
 
-  .articles-enter-active, .articles-leave-active {
-    transition: .25s;
-  }
-
-  .empty {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    max-width: 300px;
-    transform: translate(-50%, -50%);
+  @keyframes rise {
+    0% {
+      opacity: 0;
+      transform: translateY(25px);
+    } 100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 </style>

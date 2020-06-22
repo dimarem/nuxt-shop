@@ -1,44 +1,45 @@
 <template>
   <section>
     <main class="watches-description">
-      <div class="image-block">
+      <h1>{{ page_data.title }}</h1>
+      <h2>{{ page_data.brand }}</h2>
+      <div class="price">
+        {{ formatted_price }}
+      </div>
+      <div class="image">
         <img :src="page_data.image">
       </div>
-      <div class="description-block">
-        <article>
-          <h1>{{ page_data.title }}</h1>
-          <h2>{{ page_data.brand }}</h2>
-          <div class="price">
-            {{ formatted_price }}
-          </div>
-          <div class="characteristic">
-            <div>Номер лота:</div>
-            <div>{{ page_data.id }}</div>
-          </div>
-          <div class="characteristic">
-            <div>Страна: </div>
-            <div>{{ page_data.country }}</div>
-          </div>
-          <div class="characteristic">
-            <div>Пол:</div>
-            <div>{{ page_data.sex }}</div>
-          </div>
-          <div class="characteristic">
-            <div>Тип механизма:</div>
-            <div>{{ page_data.mechanism }}</div>
-          </div>
-          <div class="characteristic">
-            <div>Метал корпуса:</div>
-            <div>{{ page_data.carcass }}</div>
-          </div>
-          <div class="characteristic">
-            <div>Материал браслета:</div>
-            <div>{{ page_data.armlet }}</div>
-          </div>
-          <div class="cart-button">
-            <button>В корзину</button>
-          </div>
-        </article>
+      <div class="characteristics">
+        <div class="characteristic">
+          <div>Номер лота:</div>
+          <div>{{ page_data.id }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Страна: </div>
+          <div>{{ page_data.country }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Пол:</div>
+          <div>{{ page_data.sex }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Тип механизма:</div>
+          <div>{{ page_data.mechanism }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Метал корпуса:</div>
+          <div>{{ page_data.carcass }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Материал браслета:</div>
+          <div>{{ page_data.armlet }}</div>
+        </div>
+      </div>
+      <div class="cart-button">
+        <button>
+          <ShoppingCartSVG />
+          В корзину
+        </button>
       </div>
     </main>
   </section>
@@ -49,8 +50,12 @@
 /* eslint-disable no-console */
 
 import axios from 'axios'
+import ShoppingCartSVG from '~/components/description/ShoppingCartSVG.vue'
 
 export default {
+  components: {
+    ShoppingCartSVG
+  },
   /**
    * Запрашивает данные текущей страницы.
    */
@@ -113,85 +118,123 @@ export default {
 
 <style lang="scss">
 .watches-description {
-  display: flex;
-  min-height: 100vh;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: auto;
+  padding: 4rem 1rem;
 
-  .image-block, .description-block {
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    padding: 2rem;
-  }
-
-  .image-block {
-    background-color: rgb(240, 240, 240);
+  h1, h2, .price {
+    text-align: center;
   }
 
   h1, h2 {
     margin: 0;
     font-weight: normal;
+    text-align: center;
+  }
+
+  h1, h2 {
+    margin-bottom: .5rem;
   }
 
   h1 {
     font-family: $light-header;
-    font-size: 4rem;
+    font-size: 2.5rem;
   }
 
   h2 {
-    font-family: $light;
-    font-size: 1rem;
-    color: rgb(150, 150, 150);
+    font-size: .85rem;
+    color: rgb(155, 155, 155);
+  }
+
+  .price, .characteristics, .cart-button {
+    margin: 2rem 0;
   }
 
   .price {
-    margin: 2rem 0;
+    font-family: $numeric;
     font-size: 1.5rem;
     color: $brown;
-    font-family: $numeric;
+  }
+
+  .image {
+    padding: 2rem;
+    background-color: rgb(245, 245, 245);
+  }
+
+  img {
+    display: block;
+    max-width: 400px;
+    margin: auto;
+
+    @media screen and (max-width: 800px) {
+      max-width: 300px;
+    }
+
+    @media screen and (max-width: 475px) {
+      max-width: 200px;
+    }
+  }
+
+  .characteristics {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 600px;
+    margin: 2rem auto;
   }
 
   .characteristic {
-    display: flex;
-    font-size: .9rem;
+    box-sizing: border-box;
+    width: 200px;
+    padding: 1rem;
 
-    &:not(:last-of-type) {
-      margin-bottom: 5px;
+    div {
+      text-align: center;
     }
 
     & > div:first-of-type {
-      color: rgb(150, 150, 150);
+      font-size: .85rem;
+      color: rgb(155, 155, 155);
     }
 
     & > div:last-of-type {
       font-family: $bold;
-      padding-left: 10px;
+      font-size: .95rem;
     }
   }
 
   .cart-button {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 4rem;
-
     button {
       cursor: pointer;
-      padding: .5rem 2rem;
-      font-family: $regular;
+      position: relative;
+      display: block;
+      margin: auto;
+      padding: 1rem 3rem;
+      padding-left: 4rem;
       border: none;
       outline: none;
-      font-size: 1rem;
+      background-color: $light-blue;
       color: white;
-      border-radius: 30px;
-      background-color: $brown;
-    }
-  }
+      font-family: $bold;
+      transition: .25s;
 
-  img {
-    margin: auto;
-    width: 50%;
-    max-width: 400px;
+      &:hover {
+        background-color: darken($color: $light-blue, $amount: 10%);
+      }
+    }
+
+    svg {
+      position: absolute;
+      left: 2rem;
+      top: .75rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: .5rem;
+      fill: white;
+      transition: .25s;
+    }
   }
 }
 </style>

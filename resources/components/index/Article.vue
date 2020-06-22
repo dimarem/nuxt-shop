@@ -1,16 +1,19 @@
 <template>
   <article>
     <nuxt-link :to="`/description/${content.id}`">
-      <img
-        :src="content.image"
-        :alt="content.title"
-        :class="{ lucid }"
-        @load="lucid = false"
-      >
+      <header>
+        <img
+          :src="content.image"
+          :alt="content.title"
+        >
+      </header>
+      <main>
+        <h1>{{ content.title }}</h1>
+        <div class="price">
+          {{ formatted_price }}
+        </div>
+      </main>
     </nuxt-link>
-    <h1>{{ content.title }}</h1>
-    <h2>{{ content.brand }}</h2>
-    <p>{{ formatted_price }}</p>
   </article>
 </template>
 
@@ -25,15 +28,9 @@ export default {
       required: true
     }
   },
-  data () {
-    return {
-      lucid: true
-    }
-  },
   computed: {
     /**
-     * Формирует строковое
-     * представление цены.
+     * Отформатированное представление цены.
      *
      * @returns {string}
      */
@@ -54,59 +51,46 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-article {
-  box-sizing: border-box;
-  position: relative;
-  width: 250px;
-  margin: 0 2rem 4rem;
-  padding: 1rem;
+a {
+  color: $grey;
+  text-decoration: none;
 
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    width: 100%;
-    height: 60%;
-    border-radius: 25px;
-    background-color: rgb(245, 245, 245);
+  &:hover img {
+    transform: scale(1.035);
   }
 }
 
-h1, h2, p {
-  margin: 1rem 0;
-  text-align: center;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-h1 {
-  font-family: $bold;
-  font-size: 1rem;
-}
-
-h2 {
-  font-family: $light;
-  color: rgb(150, 150, 150);
-  text-transform: uppercase;
-  font-size: .95rem;
-}
-
-p {
-  color: $brown;
-  font-family: $numeric;
+header {
+  padding: 2rem;
+  background-color: rgb(245, 245, 245);
 }
 
 img {
-  display: block;
-  height: 225px;
-  margin: auto;
+  max-width: 100%;
+  transition: .5s;
 }
 
-.lucid {
-  opacity: 0;
+main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin: 0;
+  margin-top: 1rem;
+  padding: 0;
+}
+
+h1, .price {
+  font-size: .95rem;
+}
+
+h1 {
+  margin: 0;
+  font-family: $bold;
+  font-weight: normal;
+}
+
+.price {
+  font-family: $numeric;
+  color: $brown;
+  text-align: right;
 }
 </style>

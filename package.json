@@ -22,7 +22,6 @@
     "@adonisjs/lucid": "^4.0.22",
     "@adonisjs/session": "^1.0.19",
     "@adonisjs/shield": "^1.0.4",
-    "animejs": "^3.2.0",
     "axios": "^0.19.2",
     "cross-env": "^5.2.0",
     "mysql2": "^2.1.0",
