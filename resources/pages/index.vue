@@ -1,7 +1,7 @@
 <template>
   <section>
     <main>
-      <div class="watches">
+      <div id="watches">
         <Article
           v-for="item in watches"
           :key="item.id"
@@ -59,9 +59,7 @@ export default {
     // данные отсутствуют в кеше
     return axios
       .get(url)
-      .then(({ data }) => {
-        const { success, page_data } = data
-
+      .then(({ data: { success, page_data } }) => {
         if (success) {
           // данные по указанной странице отсутствуют
           if (page_data.data.length === 0) {
@@ -144,7 +142,7 @@ export default {
 </script>
 
 <style lang="scss">
-.watches {
+#watches {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 2rem;
@@ -163,7 +161,7 @@ export default {
 
   article {
     opacity: 0;
-    transform: translateY(25px);
+    transform: translateY(20px);
 
     &:nth-of-type(3n + 1) {
       animation: rise .5s forwards;
@@ -195,7 +193,7 @@ export default {
   @keyframes rise {
     0% {
       opacity: 0;
-      transform: translateY(25px);
+      transform: translateY(20px);
     } 100% {
       opacity: 1;
       transform: translateY(0);

@@ -24,7 +24,8 @@ Factory.blueprint('App/Models/Watch', (faker) => {
     mechanism: faker.pickone(['кварцевый', 'механика', 'автоматический', 'механика с автоподзаводом']),
     carcass: faker.pickone(['гипоаллергенная сталь', 'алюминий', 'сталь', 'серебро', 'золото', 'бронза']),
     armlet: faker.pickone(['золото', 'атлас', 'кожа', 'каучук', 'сталь']),
-    image: '/images/watches/1.png'
+    image: '/images/watches/1.png',
+    images: JSON.stringify(['/images/watches/1.png', '/images/watches/2.png'])
   }
 })
 

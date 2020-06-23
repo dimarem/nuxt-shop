@@ -72,7 +72,7 @@ img {
 
 main {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 100px;
   margin: 0;
   margin-top: 1rem;
   padding: 0;

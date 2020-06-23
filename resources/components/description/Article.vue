@@ -1,0 +1,234 @@
+<template>
+  <article>
+    <Images
+      :src="images"
+      :alt="page_data.title"
+    />
+    <main>
+      <h1>{{ page_data.title }}</h1>
+      <h2>{{ page_data.brand }}</h2>
+      <div id="price">
+        {{ formatted_price }}
+      </div>
+      <div id="characteristics">
+        <div class="characteristic">
+          <div>Номер лота:</div>
+          <div>{{ page_data.id }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Страна:</div>
+          <div>{{ page_data.country }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Пол:</div>
+          <div>{{ page_data.sex }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Тип механизма:</div>
+          <div>{{ page_data.mechanism }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Метал корпуса:</div>
+          <div>{{ page_data.carcass }}</div>
+        </div>
+        <div class="characteristic">
+          <div>Материал браслета:</div>
+          <div>{{ page_data.armlet }}</div>
+        </div>
+      </div>
+      <div id="cart-button">
+        <button>В корзину</button>
+      </div>
+    </main>
+  </article>
+</template>
+
+<script>
+/* eslint-disable vue/prop-name-casing */
+
+import Images from './Images.vue'
+
+export default {
+  components: {
+    Images
+  },
+  props: {
+    /**
+     * Объект содержащий описание товара.
+     */
+    page_data: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    /**
+     * Формирует строковое
+     * представление цены.
+     *
+     * @returns {string}
+     */
+    formatted_price () {
+      const price = new Intl.NumberFormat('ru-RU').format(this.page_data.price)
+
+      const abbreviations = {
+        USD: '$',
+        RUB: '₽'
+      }
+
+      const currency = abbreviations[this.page_data.currency]
+
+      return `${currency} ${price}`
+    },
+    /**
+     * Возвращает изображения текущих часов.
+     *
+     * @returns {array}
+     */
+    images () {
+      let images = []
+
+      try {
+        images = JSON.parse(this.page_data.images)
+      } catch (e) {}
+
+      return images
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+article {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1rem;
+  max-width: 1440px;
+  min-height: calc(100vh - 4rem); /* 4rem - padding блока main */
+  margin: auto;
+  overflow: hidden;
+
+  @media screen and (max-width: 1000px) {
+    display: block;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+
+  @media screen and (max-width: 1000px) {
+    margin-top: 2rem;
+  }
+}
+
+h1, h2 {
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+  font-family: $header;
+}
+
+h1 {
+  font-size: 3rem;
+  opacity: 0;
+  animation: shift-from-right .5s forwards;
+
+  @media screen and (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+h2 {
+  font-size: .95rem;
+  color: rgb(150, 150, 150);
+  opacity: 0;
+  animation: shift-from-right .5s .1s forwards;
+}
+
+#price {
+  margin: 2rem 0;
+  text-align: center;
+  font-family: $numeric;
+  font-size: 1.5rem;
+  color: $brown;
+  opacity: 0;
+  animation: shift-from-right .5s .2s forwards;
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+}
+
+#characteristics {
+  max-width: 500px;
+  display: grid;
+  grid-column-gap: 2rem;
+  grid-row-gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  opacity: 0;
+  animation: shift-from-right .5s .3s forwards;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+.characteristic {
+  &:not(:last-of-type) {
+    @media screen and (max-width: 375px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  & > div:first-of-type {
+    margin-bottom: 5px;
+    font-size: .85rem;
+    color: rgb(150, 150, 150);
+  }
+
+  & > div:last-of-type {
+    font-family: $bold;
+    font-size: .95rem;
+  }
+}
+
+#cart-button {
+  display: flex;
+  justify-content: center;
+  margin: 4rem 0;
+  opacity: 0;
+  animation: shift-from-right .5s .4s forwards;
+
+  button {
+    cursor: pointer;
+    padding: .75rem 3rem;
+    background-color: $grey;
+    color: white;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: .95rem;
+    border-radius: 30px;
+  }
+}
+
+@keyframes shift-from-right {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  } 100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+</style>

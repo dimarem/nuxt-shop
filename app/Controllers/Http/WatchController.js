@@ -14,7 +14,7 @@ class WatchController {
 
     try {
       // массив
-      const page_data = await Watch.query().select('id', 'title', 'brand', 'price', 'currency', 'image').orderBy('price').paginate(page, 18)
+      const page_data = await Watch.query().select('id', 'title', 'brand', 'price', 'currency', 'image').orderBy('price').paginate(page, 15)
 
       return { success: true, page_data }
     } catch (error) {
