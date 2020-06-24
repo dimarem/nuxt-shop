@@ -23,8 +23,8 @@
 /* eslint-disable no-console */
 
 import axios from 'axios'
-import Article from '~/components/index/Article.vue'
-import Pagination from '~/components/pagination/Pagination.vue'
+import Article from '~/components/index/article/Article.vue'
+import Pagination from '~/components/index/pagination/Pagination.vue'
 
 export default {
   components: {
