@@ -107,7 +107,7 @@ article {
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 1rem;
   max-width: 1440px;
-  min-height: calc(100vh - 4rem); /* 4rem - padding блока main */
+  min-height: calc(100vh - 6rem); /* 6rem - padding блока main */
   margin: auto;
   overflow: hidden;
 

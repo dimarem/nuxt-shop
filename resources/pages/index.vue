@@ -114,6 +114,7 @@ export default {
       }
     }
   },
+  layout: 'watches',
   watchQuery: true,
   /**
    * Формирует метаданные страницы.

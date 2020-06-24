@@ -56,6 +56,7 @@ export default {
         error({ statusCode: 500, message: 'Сервис временно недоступен' })
       })
   },
+  layout: 'watches',
   watchQuery: true,
   /**
    * Формирует метаданные страницы.
