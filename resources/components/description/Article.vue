@@ -36,8 +36,9 @@
           <div>{{ page_data.armlet }}</div>
         </div>
       </div>
-      <div id="cart-button">
-        <button>В корзину</button>
+      <div id="cart-button-container">
+        <!-- <button>В корзину</button> -->
+        <CartButton />
       </div>
     </main>
   </article>
@@ -46,11 +47,13 @@
 <script>
 /* eslint-disable vue/prop-name-casing */
 
-import Images from './Images.vue'
+import Images from './article-components/Images.vue'
+import CartButton from './article-components/CartButton.vue'
 
 export default {
   components: {
-    Images
+    Images,
+    CartButton
   },
   props: {
     /**
@@ -144,7 +147,7 @@ h1 {
 }
 
 h2 {
-  font-size: .95rem;
+  font-size: .875rem;
   color: rgb(150, 150, 150);
   opacity: 0;
   animation: shift-from-right .5s .1s forwards;
@@ -158,10 +161,6 @@ h2 {
   color: $brown;
   opacity: 0;
   animation: shift-from-right .5s .2s forwards;
-
-  @media screen and (max-width: 768px) {
-    font-size: 1.2rem;
-  }
 }
 
 #characteristics {
@@ -192,34 +191,22 @@ h2 {
 
   & > div:first-of-type {
     margin-bottom: 5px;
-    font-size: .85rem;
+    font-size: .875rem;
     color: rgb(150, 150, 150);
   }
 
   & > div:last-of-type {
     font-family: $bold;
-    font-size: .95rem;
+    font-size: .9375rem;
   }
 }
 
-#cart-button {
+#cart-button-container {
   display: flex;
   justify-content: center;
   margin: 4rem 0;
   opacity: 0;
   animation: shift-from-right .5s .4s forwards;
-
-  button {
-    cursor: pointer;
-    padding: .75rem 3rem;
-    background-color: $grey;
-    color: white;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    font-size: .95rem;
-    border-radius: 30px;
-  }
 }
 
 @keyframes shift-from-right {

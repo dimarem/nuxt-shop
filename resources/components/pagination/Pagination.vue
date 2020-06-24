@@ -293,7 +293,7 @@ export default {
     height: 2.5rem;
     margin: .25rem;
     color: inherit;
-    font-size: .95rem;
+    font-size: .9375rem;
     font-family: $numeric;
     text-align: center;
     text-decoration: none;

@@ -79,7 +79,7 @@ main {
 }
 
 h1, .price {
-  font-size: .95rem;
+  font-size: .9375rem;
 }
 
 h1 {
