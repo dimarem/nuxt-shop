@@ -60,7 +60,8 @@ const aliases = {}
 |
 */
 const commands = [
-  'App/Commands/NuxtBuild'
+  'App/Commands/NuxtBuild',
+  'App/Commands/Filter'
 ]
 
 module.exports = { providers, aceProviders, aliases, commands }

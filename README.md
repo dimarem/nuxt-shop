@@ -1,29 +1,33 @@
 # WatchWise
 
-Simple example of using Adonis.js and Nuxt.js frameworks.
+Простой пример магазина на фреймворках [Adonis.js](https://adonisjs.com) и [Nuxt.js](https://nuxtjs.org).
 
-## Additional dependencies
+## Установленные дполнительные зависимости
 
 1. mysql2 (<https://www.npmjs.com/package/mysql2>)
 2. sass-loader (<https://www.npmjs.com/package/sass-loader>)
 3. @nuxtjs/style-resources (<https://github.com/nuxt-community/style-resources-module/>)
 4. axios (<https://www.npmjs.com/package/axios>)
 
-## Build Setup
+### Комманда создания json-файла с настройками фильтра (размещается в "resorces/static/filter/filter.json"):
 
 ```bash
-# install dependencies
+$ adonis make:filter
+```
+
+## Комманды для рабоыт с проектом:
+
+```bash
+# установить зависимости
 $ npm install
 
-# serve with hot reload at localhost:3000
+# запустить сервер разработки
 $ npm run dev
 
-# build for production and launch server
+# сборка проекта
 $ npm run build
 $ npm run start
 
-# generate static project
+# создать статику
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Adonis.js docs](https://adonisjs.com) and [Nuxt.js docs](https://nuxtjs.org).

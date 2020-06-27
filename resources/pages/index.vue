@@ -1,5 +1,6 @@
 <template>
   <section>
+    <DataFilter />
     <main>
       <div id="watches">
         <WatchLink
@@ -25,6 +26,7 @@
 import axios from 'axios'
 import WatchLink from '~/components/watch-link/WatchLink.vue'
 import Pagination from '~/components/pagination/Pagination.vue'
+import DataFilter from '~/components/filter/DataFilter.vue'
 
 export default {
   components: {
@@ -36,7 +38,11 @@ export default {
     /**
      * Компонент для пагинации.
      */
-    Pagination
+    Pagination,
+    /**
+     * Компонент для фильтрации данных.
+     */
+    DataFilter
   },
   /**
    * Запрашивает данные текущей страницы.
