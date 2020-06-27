@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import CartSVG from './cart-button-components/CartSVG.vue'
-import Check from './cart-button-components/Check.vue'
+import CartSVG from './components/CartSVG.vue'
+import Check from './components/Check.vue'
 
 export default {
   components: {
@@ -54,19 +54,23 @@ button {
   position: relative;
   padding: 1rem 2rem;
   padding-left: 3rem;
-  background-color: $grey;
+  background-color: $blue;
   border: none;
   outline: none;
   font-family: inherit;
   color: white;
   font-size: .9375rem;
-  border-radius: 30px;
+  border-radius: 5px;
   overflow: hidden;
+
+  &:hover {
+    background-color: darken($color: $blue, $amount: 3%);
+  }
 }
 
 .label {
   position: absolute;
-  left: 4rem;
+  left: 2.75rem;
   top: 50%;
   display: flex;
   justify-content: center;
@@ -84,7 +88,7 @@ button {
 
 .text {
   display: inline-block;
-  width: 150px;
+  width: 100px;
   text-align: center;
 
   & > span {

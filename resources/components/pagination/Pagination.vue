@@ -300,7 +300,7 @@ export default {
     border-radius: 5px;
 
     &:not(.nuxt-link-exact-active):hover {
-      color: $light-blue;
+      background-color: rgb(245, 245, 245);
     }
   }
 
@@ -337,8 +337,7 @@ export default {
   }
 
   .nuxt-link-exact-active {
-    background-color: $light-blue;
-    color: white;
+    background-color: rgb(225, 225, 225);
   }
 }
 </style>

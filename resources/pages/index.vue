@@ -2,7 +2,7 @@
   <section>
     <main>
       <div id="watches">
-        <Article
+        <WatchLink
           v-for="item in watches"
           :key="item.id"
           :content="item"
@@ -23,8 +23,8 @@
 /* eslint-disable no-console */
 
 import axios from 'axios'
-import Article from '~/components/index/article/Article.vue'
-import Pagination from '~/components/index/pagination/Pagination.vue'
+import WatchLink from '~/components/watch-link/WatchLink.vue'
+import Pagination from '~/components/pagination/Pagination.vue'
 
 export default {
   components: {
@@ -32,7 +32,7 @@ export default {
      * Формирует краткое описание товара
      * и ссылку на страницу с полным.
      */
-    Article,
+    WatchLink,
     /**
      * Компонент для пагинации.
      */
@@ -160,7 +160,7 @@ export default {
     grid-template-columns: 1fr;
   }
 
-  article {
+  a {
     opacity: 0;
     transform: translateY(20px);
 

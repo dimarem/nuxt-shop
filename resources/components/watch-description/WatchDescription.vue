@@ -47,8 +47,8 @@
 <script>
 /* eslint-disable vue/prop-name-casing */
 
-import Images from './article-components/Images.vue'
-import CartButton from './article-components/CartButton.vue'
+import Images from './components/Images.vue'
+import CartButton from './components/CartButton.vue'
 
 export default {
   components: {
@@ -141,7 +141,7 @@ h1 {
   opacity: 0;
   animation: shift-from-right .5s forwards;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 425px) {
     font-size: 2rem;
   }
 }
@@ -157,8 +157,8 @@ h2 {
   margin: 2rem 0;
   text-align: center;
   font-family: $numeric;
-  font-size: 1.5rem;
-  color: $brown;
+  font-size: 1.25rem;
+  color: darken($color: $blue, $amount: 25%);
   opacity: 0;
   animation: shift-from-right .5s .2s forwards;
 }

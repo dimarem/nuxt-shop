@@ -1,6 +1,6 @@
 <template>
-  <article>
-    <nuxt-link :to="`/description/${content.id}`">
+  <nuxt-link :to="`/description/${content.id}`">
+    <article>
       <header>
         <img
           :src="content.image"
@@ -13,8 +13,8 @@
           {{ formatted_price }}
         </div>
       </main>
-    </nuxt-link>
-  </article>
+    </article>
+  </nuxt-link>
 </template>
 
 <script>
@@ -90,7 +90,7 @@ h1 {
 
 .price {
   font-family: $numeric;
-  color: $brown;
+  color: darken($color: $blue, $amount: 25%);
   text-align: right;
 }
 </style>

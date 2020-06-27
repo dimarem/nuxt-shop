@@ -1,7 +1,7 @@
 <template>
   <section>
     <main>
-      <Article :page_data="page_data" />
+      <WatchDescription :page_data="page_data" />
     </main>
   </section>
 </template>
@@ -11,11 +11,11 @@
 /* eslint-disable no-console */
 
 import axios from 'axios'
-import Article from '~/components/description/Article.vue'
+import WatchDescription from '~/components/watch-description/WatchDescription.vue'
 
 export default {
   components: {
-    Article
+    WatchDescription
   },
   /**
    * Запрашивает данные текущей страницы.
