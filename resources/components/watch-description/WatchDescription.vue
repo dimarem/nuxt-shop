@@ -37,8 +37,13 @@
         </div>
       </div>
       <div id="cart-button-container">
-        <!-- <button>В корзину</button> -->
-        <CartButton />
+        <button
+          id="cart-button"
+          @click="add_to_cart(page_data)"
+        >
+          <CartSVG />
+          В корзину
+        </button>
       </div>
     </main>
   </article>
@@ -47,13 +52,14 @@
 <script>
 /* eslint-disable vue/prop-name-casing */
 
+import { mapMutations } from 'vuex'
 import Images from './components/Images.vue'
-import CartButton from './components/CartButton.vue'
+import CartSVG from './components/CartSVG.vue'
 
 export default {
   components: {
     Images,
-    CartButton
+    CartSVG
   },
   props: {
     /**
@@ -97,6 +103,9 @@ export default {
 
       return images
     }
+  },
+  methods: {
+    ...mapMutations(['add_to_cart'])
   }
 }
 </script>
@@ -207,6 +216,45 @@ h2 {
   margin: 4rem 0;
   opacity: 0;
   animation: shift-from-right .5s .4s forwards;
+}
+
+#cart-button {
+  cursor: pointer;
+  position: relative;
+  padding: 1rem 2rem;
+  padding-left: 3.5rem;
+  background-color: $blue;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  color: white;
+  font-size: .9375rem;
+  border-radius: 5px;
+  transition: .3s;
+
+  &:active {
+    transform: scale(.97);
+  }
+
+  &:hover {
+    background-color: lighten($color: $blue, $amount: 5%);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.11),
+                0 2px 2px rgba(0,0,0,0.11),
+                0 4px 4px rgba(0,0,0,0.11),
+                0 8px 8px rgba(0,0,0,0.11),
+                0 16px 16px rgba(0,0,0,0.11),
+                0 32px 32px rgba(0,0,0,0.11);
+  }
+
+  svg {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    width: 1.125rem;
+    height: 1.125rem;
+    fill: white;
+    transform: translateY(-50%);
+  }
 }
 
 @keyframes shift-from-right {

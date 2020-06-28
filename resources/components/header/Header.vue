@@ -1,18 +1,41 @@
 <template>
   <header>
-    <!-- кнопка переводящая на страницу корзины -->
-    <button>
-      <CartSVG />
-    </button>
+    <div class="header-container">
+      <CartButton
+        to="/cart"
+        :goods_amount="goods_amount"
+      />
+    </div>
   </header>
 </template>
 
 <script>
-import CartSVG from './components/CartSVG.vue'
+/* eslint-disable camelcase */
+
+import { mapState } from 'vuex'
+import CartButton from './components/cart-button/CartButton.vue'
 
 export default {
   components: {
-    CartSVG
+    CartButton
+  },
+  computed: {
+    ...mapState(['cart']),
+    /**
+     * Расчитывает общее количество
+     * товаров в корзине.
+     *
+     * @returns {number}
+     */
+    goods_amount () {
+      let goods_amount = 0
+
+      for (let i = 0; i < this.cart.length; i++) {
+        goods_amount += this.cart[i].total
+      }
+
+      return goods_amount
+    }
   }
 }
 </script>
@@ -24,8 +47,6 @@ header {
   left: 0;
   top: 0;
   z-index: 10;
-  display: flex;
-  justify-content: flex-end;
   width: 100%;
   padding: 1rem 2rem;
   background-color: white;
@@ -36,22 +57,10 @@ header {
               0 16px 32px rgba(0,0,0,0.03);
 }
 
-button {
-  cursor: pointer;
-  padding: 0;
-  background-color: transparent;
-  border: none;
-  outline: none;
-
-  &:not(:last-of-type) {
-    margin-right: 1rem;
-  }
-}
-
-svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  fill: $grey;
-  transition: .25s;
+.header-container {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 1440px;
+  margin: auto;
 }
 </style>

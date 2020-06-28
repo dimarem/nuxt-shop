@@ -1,25 +1,25 @@
 <template>
-  <div :class="{'nuxt-pagination': use_default_css}">
+  <div class="nuxt-pagination">
     <button
       v-if="buttons_required"
-      :class="{'nuxt-pagination-button': use_default_css}"
+      :class="nuxt-pagination-button"
       @click="show_previous_links"
     >
       <BackSVG :class="{ inactive: left_button_inactive }" />
     </button>
-    <div :class="{'nuxt-pagination-links': use_default_css}">
+    <div class="nuxt-pagination-links">
       <nuxt-link
         v-for="route in routes"
         :key="route.url"
         :to="route.url"
-        :class="{'nuxt-pagination-link': use_default_css}"
+        class="nuxt-pagination-link"
       >
         {{ route.index }}
       </nuxt-link>
     </div>
     <button
       v-if="buttons_required"
-      :class="{'nuxt-pagination-button': use_default_css}"
+      class="nuxt-pagination-button"
       @click="show_next_links"
     >
       <ForthSVG :class="{ inactive: right_button_inactive }" />
@@ -89,18 +89,6 @@ export default {
       type: Number,
       required: false,
       default: 10
-    },
-    /**
-     * Индикатор необходимости использования
-     * css-стилей по умолчанию.
-     * Можно выставить в false, чтобы исрользовать свои стили.
-     *
-     * @example :use_default_css="false"
-     */
-    use_default_css: {
-      type: Boolean,
-      required: false,
-      default: true
     }
   },
   data () {

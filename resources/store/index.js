@@ -37,7 +37,16 @@ export const state = () => ({
    *
    * @example {foo: 1, bar: 2}
    */
-  search_params: {}
+  search_params: {},
+  /**
+   * Массив содержащий товары в корзине.
+   *
+   * Каждый элемент корзины представлен
+   * в виде объекта вида { total: ...,  good: { ... }}
+   * где total - общее количество определенного товара,
+   * good - объект с описанием товара.
+   */
+  cart: []
 })
 
 export const getters = {
@@ -113,6 +122,35 @@ export const mutations = {
    */
   save_search_params (state, search_params) {
     state.search_params = search_params
+  },
+  /**
+   * Сохраняет товар в хранилище.
+   *
+   * @param {object} good_data - объект содержащий данные по торвару.
+   */
+  add_to_cart (state, good_data) {
+    // state.cart.push(good_data)
+
+    const cart = state.cart
+
+    // каждый элемент корзины представлен
+    // в виде объекта вида { total: ...,  good: { ... }}
+    // где total - общее количество определенного товара,
+    // good - объект с описанием товара
+    for (let i = 0; i < cart.length; i++) {
+      const { good } = cart[i]
+
+      // повторно добавляется тот же товар
+      if (good && good.title === good_data.title) {
+        cart[i].total += 1
+
+        return
+      }
+    }
+
+    // соответствий по товару не найдено,
+    // добавим новый товар в корзину
+    state.cart.push({ total: 1, good: good_data })
   }
 }
 

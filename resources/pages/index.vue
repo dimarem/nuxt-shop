@@ -15,9 +15,6 @@
           :content="item"
         />
       </div>
-      <div id="no-data">
-        Данные по указанным критериям отсутствуют
-      </div>
     </main>
     <Pagination
       v-if="pagination_required"
@@ -66,15 +63,16 @@ export default {
     const search_mechanism = mechanism ? `&mechanism=${encodeURIComponent(mechanism)}` : ''
     const url = `${baseUrl}/api/watches?${search_page}${search_sex}${search_mechanism}`
 
-    // обновим состояние фильтра данных,
-    // чтобы оно соответствовало представленным
+    // обновим состояние фильтра данных и компонента
+    // пагинации, чтобы они соответствовали представленным
     // данным на странице
-    const filter_state = {}
+    const params = {}
 
-    if (sex) filter_state.sex = sex
-    if (mechanism) filter_state.mechanism = mechanism
+    if (sex) params.sex = sex
+    if (mechanism) params.mechanism = mechanism
 
-    store.commit('save_filter_state', filter_state)
+    store.commit('save_filter_state', params)
+    store.commit('save_search_params', params)
 
     // проверим наличие данных в кеше
     // возможно страница уже посещалась ранее
