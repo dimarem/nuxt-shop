@@ -168,6 +168,11 @@ export default {
       return this.routes[this.routes.length - 1].index === this.number_of_pages
     }
   },
+  watch: {
+    number_of_pages () {
+      this.routes = this.get_routes()
+    }
+  },
   created () {
     this.routes = this.get_routes()
   },

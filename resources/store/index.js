@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable arrow-parens */
 
 import axios from 'axios'
@@ -15,7 +16,28 @@ export const state = () => ({
    *
    * @example [{url: '/some/url', page_data: '{...}'}]
    */
-  cache: []
+  cache: [],
+  /**
+   * Данные фильтра.
+   *
+   * @example {sex: "мужские", mechanism: "кварцевый"}
+   */
+  filter_state: {},
+  /**
+   * Настройки фильтра на странице
+   * со списком часов.
+   *
+   * @example {"countries":[{"country":"Швейцария"},{"country":"Китай"},{"country":"Англия"}]}
+   */
+  filter_settings: undefined,
+  /**
+   * Поисковые параметры.
+   * Используются для пагинации страниц
+   * и в фильтре данных.
+   *
+   * @example {foo: 1, bar: 2}
+   */
+  search_params: {}
 })
 
 export const getters = {
@@ -46,7 +68,7 @@ export const getters = {
 
 export const mutations = {
   /**
-   * Сохраняет общие метаданные сайта.
+   * Сохраняет метаданные сайта.
    */
   set_meta (state, meta) {
     state.meta = meta
@@ -66,6 +88,31 @@ export const mutations = {
     }
 
     state.cache.push(data)
+  },
+  /**
+   * Сохраняет настройки фильтра
+   * данных на странице со списком часов.
+   *
+   * @param {object} settings - объект содержащий настройки фильтра
+   */
+  save_filter_settings (state, settings) {
+    state.filter_settings = settings
+  },
+  /**
+   * Сохраняет состояние фильтра.
+   *
+   * @param {object} filter_state - объект содержащий состояние фильтра
+   */
+  save_filter_state (state, filter_state) {
+    state.filter_state = filter_state
+  },
+  /**
+   * Сохраняет поисковые параметры.
+   *
+   * @param {object} search_params - объект содержащий поисковые параметры
+   */
+  save_search_params (state, search_params) {
+    state.search_params = search_params
   }
 }
 
@@ -79,8 +126,12 @@ export const actions = {
       const meta = await axios.get(`${process.env.baseUrl}/api/meta`).then(({ data }) => data)
 
       commit('set_meta', meta)
-    } catch (e) {
-      commit('set_meta', [])
-    }
+    } catch (e) {}
+
+    try {
+      const filter_settings = await axios.get(`${process.env.baseUrl}/filter/filter.json`).then(({ data }) => data)
+
+      commit('save_filter_settings', filter_settings)
+    } catch (e) {}
   }
 }

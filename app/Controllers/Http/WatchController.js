@@ -1,3 +1,4 @@
+/* eslint-disable curly */
 /* eslint-disable camelcase */
 'use strict'
 
@@ -11,10 +12,16 @@ class WatchController {
    */
   async index ({ request }) {
     const page = request.input('page')
+    const sex = request.input('sex')
+    const mechanism = request.input('mechanism')
+    const where = {}
+
+    if (sex) where.sex = sex
+    if (mechanism) where.mechanism = mechanism
 
     try {
       // массив
-      const page_data = await Watch.query().select('id', 'title', 'brand', 'price', 'currency', 'image').orderBy('price').paginate(page, 15)
+      const page_data = await Watch.query().where(where).select('id', 'title', 'brand', 'price', 'currency', 'image').orderBy('price').paginate(page, 15)
 
       return { success: true, page_data }
     } catch (error) {

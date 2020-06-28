@@ -17,13 +17,13 @@ class Filter extends Command {
 
   async handle (args, options) {
     try {
-      const contries = await Watch.query().distinct('country').fetch()
+      const countries = await Watch.query().distinct('country').fetch()
       const sex = await Watch.query().distinct('sex').fetch()
       const mechanisms = await Watch.query().distinct('mechanism').fetch()
       const carcasses = await Watch.query().distinct('carcass').fetch()
       const armlets = await Watch.query().distinct('armlet').fetch()
 
-      const result = JSON.stringify({ contries, sex, mechanisms, carcasses, armlets })
+      const result = JSON.stringify({ countries, sex, mechanisms, carcasses, armlets })
 
       const filter_path = Helpers.resourcesPath('static/filter/filter.json')
 

@@ -29,7 +29,11 @@ header {
   width: 100%;
   padding: 1rem 2rem;
   background-color: white;
-  box-shadow: 0 2px 3px rgba($color: #000, $alpha: .2);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03),
+              0 2px 4px rgba(0,0,0,0.03),
+              0 4px 8px rgba(0,0,0,0.03),
+              0 8px 16px rgba(0,0,0,0.03),
+              0 16px 32px rgba(0,0,0,0.03);
 }
 
 button {

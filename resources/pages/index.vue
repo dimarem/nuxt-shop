@@ -1,19 +1,29 @@
 <template>
   <section>
-    <DataFilter />
+    <DataFilter
+      :filter_state="filter_state"
+      base="/"
+    />
     <main>
-      <div id="watches">
+      <div
+        id="watches"
+        :class="{padded: !pagination_required}"
+      >
         <WatchLink
           v-for="item in watches"
           :key="item.id"
           :content="item"
         />
       </div>
+      <div id="no-data">
+        Данные по указанным критериям отсутствуют
+      </div>
     </main>
     <Pagination
       v-if="pagination_required"
-      :current_page="page_data.page"
-      :number_of_pages="page_data.lastPage"
+      :current_page="current_page"
+      :number_of_pages="number_of_pages"
+      :search="search_params"
       base="/"
     />
   </section>
@@ -22,7 +32,9 @@
 <script>
 /* eslint-disable camelcase */
 /* eslint-disable no-console */
+/* eslint-disable curly */
 
+import { mapState } from 'vuex'
 import axios from 'axios'
 import WatchLink from '~/components/watch-link/WatchLink.vue'
 import Pagination from '~/components/pagination/Pagination.vue'
@@ -40,7 +52,7 @@ export default {
      */
     Pagination,
     /**
-     * Компонент для фильтрации данных.
+     * Компонент с опциями фильтрации данных.
      */
     DataFilter
   },
@@ -48,10 +60,24 @@ export default {
    * Запрашивает данные текущей страницы.
    */
   asyncData ({ store, query, error, env: { baseUrl } }) {
-    const page = query.page
-    const url = `${baseUrl}/api/watches?page=${page || 1}`
+    const { page, sex, mechanism } = query
+    const search_page = page ? `page=${page}` : 'page=1'
+    const search_sex = sex ? `&sex=${encodeURIComponent(sex)}` : ''
+    const search_mechanism = mechanism ? `&mechanism=${encodeURIComponent(mechanism)}` : ''
+    const url = `${baseUrl}/api/watches?${search_page}${search_sex}${search_mechanism}`
+
+    // обновим состояние фильтра данных,
+    // чтобы оно соответствовало представленным
+    // данным на странице
+    const filter_state = {}
+
+    if (sex) filter_state.sex = sex
+    if (mechanism) filter_state.mechanism = mechanism
+
+    store.commit('save_filter_state', filter_state)
 
     // проверим наличие данных в кеше
+    // возможно страница уже посещалась ранее
     const { cached, index } = store.getters.in_cache(url)
 
     // данные по этой странице уже были получены ранее
@@ -98,6 +124,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['filter_state', 'search_params']),
     /**
      * Возвращает массив содержащий
      * описание часов.
@@ -107,6 +134,22 @@ export default {
      */
     watches () {
       return this.page_data.data
+    },
+    /**
+     * Текущая страница.
+     *
+     * @returns {string}
+     */
+    current_page () {
+      return this.page_data.page
+    },
+    /**
+     * Общее количество страниц.
+     *
+     * @returns {number}
+     */
+    number_of_pages () {
+      return this.page_data.lastPage
     },
     /**
      * Вычисляет необходимость отображения
@@ -206,5 +249,9 @@ export default {
       transform: translateY(0);
     }
   }
+}
+
+.padded {
+  padding-bottom: 6rem;
 }
 </style>
