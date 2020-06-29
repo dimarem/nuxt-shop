@@ -122,7 +122,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['filter_state', 'search_params']),
+    ...mapState(['meta', 'filter_state', 'search_params']),
     /**
      * Возвращает массив содержащий
      * описание часов.
@@ -136,10 +136,10 @@ export default {
     /**
      * Текущая страница.
      *
-     * @returns {string}
+     * @returns {number}
      */
     current_page () {
-      return this.page_data.page
+      return parseInt(this.page_data.page)
     },
     /**
      * Общее количество страниц.
@@ -152,6 +152,8 @@ export default {
     /**
      * Вычисляет необходимость отображения
      * компонента пагинации страниц.
+     *
+     * @returns {boolean}
      */
     pagination_required () {
       try {
@@ -167,11 +169,11 @@ export default {
    * Формирует метаданные страницы.
    */
   head () {
-    const meta = this.$store.state.meta
+    const meta = this.meta
 
     const watches_page_meta = meta.length ? meta.find(item => item.page === 'watches') : {}
 
-    const { page_title = 'WatchWise', page_description = '', page_keywords = '' } = watches_page_meta
+    const { page_title = 'WatchWise', page_description = '', page_keywords = '' } = (watches_page_meta || {})
 
     return {
       title: `${page_title}`,

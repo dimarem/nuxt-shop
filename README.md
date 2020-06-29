@@ -1,4 +1,4 @@
-# WatchWise
+# WatchWise (в процессе доработки)
 
 Простой пример магазина на фреймворках [Adonis.js](https://adonisjs.com) и [Nuxt.js](https://nuxtjs.org).
 
